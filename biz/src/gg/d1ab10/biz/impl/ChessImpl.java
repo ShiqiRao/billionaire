@@ -1,7 +1,6 @@
 package gg.d1ab10.biz.impl;
 
 import gg.d1ab10.biz.Chess;
-import gg.d1ab10.biz.Scene;
 import gg.d1ab10.biz.Wealth;
 import gg.d1ab10.biz.units.EstateUnit;
 
@@ -12,21 +11,11 @@ public class ChessImpl implements Chess {
     private Set<EstateUnit> estateUnits = new HashSet<>();
     private Money account;
     private int position;
-    private Scene scene;
-
-
-    public ChessImpl(Scene scene) {
-        this.scene = scene;
-    }
+    private ChessImpl next = this;
 
     @Override
     public int getPosition() {
         return position;
-    }
-
-    @Override
-    public void move(int step) {
-        scene.increasePosition(this, step);
     }
 
     @Override
@@ -60,6 +49,16 @@ public class ChessImpl implements Chess {
             return estateUnits.contains(wealth);
         }
         return false;
+    }
+
+    @Override
+    public void setNext(Chess next) {
+        this.next = (ChessImpl) next;
+    }
+
+    @Override
+    public Chess getNext() {
+        return next;
     }
 
 }
